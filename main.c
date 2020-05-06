@@ -14,6 +14,7 @@ int IsFullQueue(struct ArrayQueue *Q);
 int IsEmptyQueue(struct ArrayQueue *Q);
 int QueueSize(struct ArrayQueue *Q);
 void PrintQueue(struct ArrayQueue *Q);
+void DeleteQueue(struct ArrayQueue *Q);
 
 int main(void){
 	int size = 5;
@@ -30,6 +31,7 @@ int main(void){
 	EnQueue(Q, 11);
 	printf("Queuesize is %d\n", QueueSize(Q));
 	PrintQueue(Q);
+	DeleteQueue(Q);
 	return 0;
 }
 
@@ -109,6 +111,15 @@ void PrintQueue(struct ArrayQueue *Q){
 			}
 			printf("%d\n", Q->array[current]);
 			current++;
+		}
+	}
+}
+
+void DeleteQueue(struct ArrayQueue *Q){
+	if(Q){
+		if(Q->array){
+			free(Q->array);
+			free(Q);
 		}
 	}
 }
