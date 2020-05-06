@@ -7,12 +7,20 @@ struct ArrayQueue{
 	int *array;
 };
 
-struct ArrayQueue *CreateQueue(int);
+struct ArrayQueue *CreateQueue(int data);
+void EnQueue(struct ArrayQueue *Q, int data);
+int IsFullQueue(struct ArrayQueue *Q);
 
 int main(void){
 	int size = 5;
 	struct ArrayQueue *Q;
 	Q = CreateQueue(size);
+	EnQueue(Q, 1);
+	EnQueue(Q, 3);
+	EnQueue(Q, 5);
+	EnQueue(Q, 7);
+	EnQueue(Q, 9);
+	printf("%d\n", IsFullQueue(Q));
 	return 0;
 }
 
@@ -30,3 +38,19 @@ struct ArrayQueue *CreateQueue(int size){
 	}
 	return Q;
 };
+
+void EnQueue(struct ArrayQueue *Q, int data){
+	if(IsFullQueue(Q)){
+		printf("Queue Overflow\n");
+	}else{
+		Q->rear = (Q->rear+1)%Q->capacity;
+		Q->array[Q->rear] = data;
+		if(Q->front==-1){
+			Q->front = Q->rear;
+		}
+	}
+}
+
+int IsFullQueue(struct ArrayQueue *Q){
+	return ((Q->rear+1)%Q->capacity == Q->front); 
+}
